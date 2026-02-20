@@ -1,19 +1,20 @@
 services:
-  jellyseerr:
-    image: fallenbagel/jellyseerr
-    container_name: jellyseerr
+  seerr:
+    image: ghcr.io/seerr-team/seerr
+    container_name: seerr
     profiles:
-      - jellyseerr
+      - seerr
       - streaming
+    init: true
     environment:
       TZ: ${TZ:?}
       LOG_LEVEL: debug
     volumes:
       - type: bind
-        source: ${APP_LOG_PATH:?}/jellyseerr
+        source: ${APP_LOG_PATH:?}/seerr
         target: /app/config/logs
       - type: bind
-        source: ${APP_DATA_PATH:?}/jellyseerr
+        source: ${APP_DATA_PATH:?}/seerr
         target: /app/config
     # ports:
     #   - 5055:5055
@@ -21,35 +22,35 @@ services:
       - streaming
     labels:
       com.centurylinklabs.watchtower.enable: true
-      docker-volume-backup.stop-during-backup: jellyseerr
+      docker-volume-backup.stop-during-backup: seerr
       traefik.enable: true
-      traefik.http.routers.jellyseerr.rule: Host(`jellyseerr.${DOMAIN:?}`)
-      traefik.http.routers.jellyseerr.entryPoints: websecure
+      traefik.http.routers.seerr.rule: Host(`seerr.${DOMAIN:?}`)
+      traefik.http.routers.seerr.entryPoints: websecure
     depends_on:
       - jellyfin
       - radarr
       - sonarr
     restart: unless-stopped
 
-  jellyseerr-backup:
+  seerr-backup:
     image: offen/docker-volume-backup:v2
-    container_name: jellyseerr-backup
+    container_name: seerr-backup
     profiles:
       - backup
-      - jellyseerr
+      - seerr
       - streaming
     environment:
-      EXEC_LABEL: jellyseerr
-      BACKUP_STOP_DURING_BACKUP_LABEL: jellyseerr
+      EXEC_LABEL: seerr
+      BACKUP_STOP_DURING_BACKUP_LABEL: seerr
       BACKUP_PRUNING_PREFIX: backup-
       BACKUP_RETENTION_DAYS: 7
     volumes:
       - type: bind
-        source: ${APP_DATA_PATH:?}/jellyseerr
-        target: /backup/jellyseerr
+        source: ${APP_DATA_PATH:?}/seerr
+        target: /backup/seerr
         read_only: true
       - type: bind
-        source: ${BACKUP_DATA_PATH:?}/jellyseerr
+        source: ${BACKUP_DATA_PATH:?}/seerr
         target: /archive
       - type: bind
         source: /var/run/docker.sock
