@@ -18,6 +18,13 @@ services:
       - type: bind
         source: ${APP_DATA_PATH:?}/home-assistant
         target: /config
+      # https://github.com/home-assistant/core/issues/127966#issuecomment-2567771957
+      - type: bind
+        source: ./venv-run
+        target: /etc/services.d/home-assistant/run
+      - type: bind
+        source: ${APP_DATA_PATH:?}/home-assistant/venv
+        target: /venv
     networks:
       - home-assistant
       - mqtt
