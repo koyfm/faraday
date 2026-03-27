@@ -21,7 +21,7 @@ services:
     networks:
       - immich
     # ports:
-    #   - 2283:3001
+    #   - 2283:2283
     labels:
       com.centurylinklabs.watchtower.enable: true
       traefik.enable: true
@@ -84,6 +84,35 @@ services:
       docker-volume-backup.archive-pre: "/bin/sh -c 'pg_dumpall --clean --if-exists --username=${IMMICH_DB_USERNAME:?} | gzip > /backup/dump.sql.gz'"
     restart: unless-stopped
 
+  immichframe:
+    image: ghcr.io/immichframe/immichframe:latest
+    container_name: immichframe
+    profiles:
+      - immich
+    environment:
+      TZ: ${TZ:?}
+      ImmichServerUrl: "http://immich-server:2283"
+      ApiKey: ${IMMICHFRAME_API_KEY}
+      Albums: ${IMMICHFRAME_ALBUMS}
+      ShowClock: false
+      ShowPeopleDesc: false
+      ShowTagsDesc: false
+      ShowAlbumName: false
+    networks:
+      - immich
+    # ports:
+    #   - 8080:8080
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+      traefik.enable: true
+      traefik.http.routers.immichframe.rule: Host(`immichframe.${DOMAIN:?}`)
+      traefik.http.routers.immichframe.entrypoints: websecure
+      traefik.http.routers.immichframe.middlewares: ip-allowlist@docker
+      traefik.http.services.immichframe.loadbalancer.server.port: 8080
+    depends_on:
+      - immich-server
+    restart: unless-stopped
+
   immich-backup:
     image: offen/docker-volume-backup:v2
     container_name: immich-backup
@@ -99,6 +128,10 @@ services:
       - type: bind
         source: ${APP_DATA_PATH:?}/immich
         target: /backup/immich
+        read_only: true
+      - type: bind
+        source: ${APP_DATA_PATH:?}/immichframe
+        target: /backup/immichframe
         read_only: true
       - type: bind
         source: ${BACKUP_DATA_PATH:?}/immich
