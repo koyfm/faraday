@@ -11,6 +11,7 @@ include:
   - immich/compose.yaml
   - karakeep/compose.yaml
   - mealie/compose.yaml
+  - memos/compose.yaml
   - microbin/compose.yaml
   - miniflux/compose.yaml
   - monica/compose.yaml

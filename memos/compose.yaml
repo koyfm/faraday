@@ -1,0 +1,55 @@
+services:
+  memos:
+    image: neosmemo/memos:stable
+    container_name: memos
+    profiles:
+      - memos
+    environment:
+      MEMOS_DRIVER: sqlite
+      MEMOS_INSTANCE_URL: "https://memos.${DOMAIN:?}"
+    volumes:
+      - type: bind
+        source: ${APP_DATA_PATH:?}/memos
+        target: /var/opt/memos
+    networks:
+        - memos
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+      docker-volume-backup.stop-during-backup: memos
+      traefik.enable: true
+      traefik.http.routers.memos.rule: Host(`memos.${DOMAIN:?}`)
+      traefik.http.routers.memos.entryPoints: websecure
+      traefik.http.routers.memos.middlewares: ip-allowlist@docker
+    restart: unless-stopped
+
+  memos-backup:
+    image: offen/docker-volume-backup:v2
+    container_name: memos-backup
+    profiles:
+      - backup
+      - memos
+    environment:
+      EXEC_LABEL: memos
+      BACKUP_STOP_DURING_BACKUP_LABEL: memos
+      BACKUP_PRUNING_PREFIX: backup-
+      BACKUP_RETENTION_DAYS: 7
+    volumes:
+      - type: bind
+        source: ${APP_DATA_PATH:?}/memos
+        target: /backup/memos
+        read_only: true
+      - type: bind
+        source: ${BACKUP_DATA_PATH:?}/memos
+        target: /archive
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        read_only: true
+    network_mode: none
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+    restart: unless-stopped
+
+networks:
+  memos:
+    name: memos

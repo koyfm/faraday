@@ -62,6 +62,7 @@ services:
       - immich
       - paperless-ngx
       - baikal
+      - memos
       - karakeep
       - speedtest-tracker
       - vikunja
