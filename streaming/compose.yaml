@@ -4,7 +4,6 @@ include:
   - calibre-web/compose.yaml
   - ersatztv/compose.yaml
   - flaresolverr/compose.yaml
-  - janitorr/compose.yaml
   - jellyfin/compose.yaml
   - lidarr/compose.yaml
   - navidrome/compose.yaml
