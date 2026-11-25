@@ -15,7 +15,7 @@ services:
         source: ${APP_DATA_PATH:?}/qbittorrent
         target: /config
       - type: bind
-        source: ${USER_DATA_PATH:?}
+        source: ${STORAGE_PATH:?}
         target: /data
     ports:
       #   - 8080:8080
