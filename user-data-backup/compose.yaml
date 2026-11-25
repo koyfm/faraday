@@ -12,11 +12,11 @@ services:
       BACKUP_RETENTION_DAYS: 1
     volumes:
       - type: bind
-        source: ${USER_DATA_PATH:?}/photos
+        source: ${STORAGE_PATH:?}/photos
         target: /backup/photos
         read_only: true
       - type: bind
-        source: ${USER_DATA_PATH:?}/files
+        source: ${STORAGE_PATH:?}/files
         target: /backup/files
         read_only: true
       - type: bind

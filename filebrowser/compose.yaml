@@ -15,7 +15,7 @@ services:
         source: ${APP_DATA_PATH:?}/filebrowser/config/settings.json
         target: /.filebrowser.json
       - type: bind
-        source: ${USER_DATA_PATH:?}/files
+        source: ${STORAGE_PATH:?}/files
         target: /srv
     ports:
       - 26713:80

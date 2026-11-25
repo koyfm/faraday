@@ -19,7 +19,7 @@ services:
         source: ${APP_DATA_PATH:?}/calibre/ingest
         target: /cwa-book-ingest
       - type: bind
-        source: ${USER_DATA_PATH:?}/calibre
+        source: ${STORAGE_PATH:?}/calibre
         target: /calibre-library
     # ports:
     #   - 8083:8083

@@ -15,7 +15,7 @@ services:
         source: ${APP_DATA_PATH:?}/satisfactory
         target: /config
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/satisfactory
+        source: ${STORAGE_PATH:?}/games/satisfactory
         target: /config/saved
     networks:
       - satisfactory
@@ -42,7 +42,7 @@ services:
         target: /backup/config
         read_only: true
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/satisfactory
+        source: ${STORAGE_PATH:?}/games/satisfactory
         target: /backup/saved
         read_only: true
       - type: bind

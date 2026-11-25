@@ -17,7 +17,7 @@ services:
         source: ${APP_DATA_PATH:?}/sonarr
         target: /config
       - type: bind
-        source: ${USER_DATA_PATH:?}
+        source: ${STORAGE_PATH:?}
         target: /data
     # ports:
     #   - 8989:8989
@@ -44,7 +44,7 @@ services:
         source: ${APP_DATA_PATH:?}/sonarr-4k
         target: /config
       - type: bind
-        source: ${USER_DATA_PATH:?}
+        source: ${STORAGE_PATH:?}
         target: /data
     # ports:
     #   - 8990:8989
@@ -66,7 +66,7 @@ services:
         source: ${APP_DATA_PATH:?}/sonarr-anime
         target: /config
       - type: bind
-        source: ${USER_DATA_PATH:?}
+        source: ${STORAGE_PATH:?}
         target: /data
     # ports:
     #   - 8991:8989

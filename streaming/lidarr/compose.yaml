@@ -17,7 +17,7 @@ services:
         source: ${APP_DATA_PATH:?}/lidarr
         target: /config
       - type: bind
-        source: ${USER_DATA_PATH:?}
+        source: ${STORAGE_PATH:?}
         target: /data
     # ports:
     #   - 8686:8686

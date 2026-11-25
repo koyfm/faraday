@@ -16,7 +16,7 @@ services:
       - /dev/dri:/dev/dri
     volumes:
       - type: bind
-        source: ${USER_DATA_PATH:?}/photos/immich
+        source: ${STORAGE_PATH:?}/photos/immich
         target: /usr/src/app/upload
     networks:
       - immich

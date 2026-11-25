@@ -44,7 +44,7 @@ services:
       MICROBIN_MAX_FILE_SIZE_UNENCRYPTED_MB: 2048
     volumes:
       - type: bind
-        source: ${USER_DATA_PATH:?}/microbin
+        source: ${STORAGE_PATH:?}/microbin
         target: /app/microbin_data
     networks:
       - microbin
@@ -69,7 +69,7 @@ services:
       BACKUP_RETENTION_DAYS: 7
     volumes:
       - type: bind
-        source: ${USER_DATA_PATH:?}/microbin
+        source: ${STORAGE_PATH:?}/microbin
         target: /backup/microbin
         read_only: true
       - type: bind

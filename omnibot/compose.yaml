@@ -13,7 +13,7 @@ services:
       CHANNEL_ID: ${OMNIBOT_CHANNEL_ID:?}
     volumes:
       - type: bind
-        source: ${USER_DATA_PATH:?}/omnibot
+        source: ${STORAGE_PATH:?}/omnibot
         target: /omnibot
     networks:
       - omnibot
@@ -31,7 +31,7 @@ services:
       BACKUP_RETENTION_DAYS: 7
     volumes:
       - type: bind
-        source: ${USER_DATA_PATH:?}/omnibot
+        source: ${STORAGE_PATH:?}/omnibot
         target: /backup/omnibot
         read_only: true
       - type: bind

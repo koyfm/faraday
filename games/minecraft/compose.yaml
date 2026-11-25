@@ -17,10 +17,10 @@ services:
         source: ${APP_DATA_PATH:?}/minecraft
         target: /data
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/minecraft/config
+        source: ${STORAGE_PATH:?}/games/minecraft/config
         target: /data/config
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/minecraft/mods
+        source: ${STORAGE_PATH:?}/games/minecraft/mods
         target: /data/mods
     networks:
       - minecraft
@@ -45,11 +45,11 @@ services:
         target: /backup/minecraft
         read_only: true
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/minecraft/config
+        source: ${STORAGE_PATH:?}/games/minecraft/config
         target: /backup/config
         read_only: true
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/minecraft/mods
+        source: ${STORAGE_PATH:?}/games/minecraft/mods
         target: /backup/mods
         read_only: true
       - type: bind

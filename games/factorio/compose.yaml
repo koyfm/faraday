@@ -13,10 +13,10 @@ services:
         source: ${APP_DATA_PATH:?}/factorio
         target: /factorio
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/factorio/saves
+        source: ${STORAGE_PATH:?}/games/factorio/saves
         target: /factorio/saves
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/factorio/mods
+        source: ${STORAGE_PATH:?}/games/factorio/mods
         target: /factorio/mods
     networks:
       - factorio
@@ -42,11 +42,11 @@ services:
         target: /backup/factorio
         read_only: true
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/factorio/saves
+        source: ${STORAGE_PATH:?}/games/factorio/saves
         target: /backup/saves
         read_only: true
       - type: bind
-        source: ${USER_DATA_PATH:?}/games/factorio/mods
+        source: ${STORAGE_PATH:?}/games/factorio/mods
         target: /backup/mods
         read_only: true
       - type: bind

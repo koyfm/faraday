@@ -22,13 +22,13 @@ services:
         source: ${APP_DATA_PATH:?}/paperless/data
         target: /usr/src/paperless/data
       - type: bind
-        source: ${USER_DATA_PATH:?}/documents/media
+        source: ${STORAGE_PATH:?}/documents/media
         target: /usr/src/paperless/media
       - type: bind
-        source: ${USER_DATA_PATH:?}/documents/export
+        source: ${STORAGE_PATH:?}/documents/export
         target: /usr/src/paperless/export
       - type: bind
-        source: ${USER_DATA_PATH:?}/documents/consume
+        source: ${STORAGE_PATH:?}/documents/consume
         target: /usr/src/paperless/consume
     healthcheck:
       test:
@@ -79,7 +79,7 @@ services:
         target: /backup/paperless
         read_only: true
       - type: bind
-        source: ${USER_DATA_PATH:?}/documents
+        source: ${STORAGE_PATH:?}/documents
         target: /backup/documents
         read_only: true
       - type: bind

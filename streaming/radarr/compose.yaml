@@ -17,7 +17,7 @@ services:
         source: ${APP_DATA_PATH:?}/radarr
         target: /config
       - type: bind
-        source: ${USER_DATA_PATH:?}
+        source: ${STORAGE_PATH:?}
         target: /data
     # ports:
     #   - 7878:7878
@@ -44,7 +44,7 @@ services:
         source: ${APP_DATA_PATH:?}/radarr-4k
         target: /config
       - type: bind
-        source: ${USER_DATA_PATH:?}
+        source: ${STORAGE_PATH:?}
         target: /data
     # ports:
     #   - 7879:7878
